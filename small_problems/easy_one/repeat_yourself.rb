@@ -56,10 +56,7 @@ def repeat(str, int)
   end
 end
 
-
-
 repeat('Hello', 3)
-
 
 # Hello
 # Hello
