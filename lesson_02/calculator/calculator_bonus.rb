@@ -1,6 +1,6 @@
 require 'yaml'
 MESSAGES = YAML.load_file('calculator_messages.yml')
-LANGUAGE = 'en'
+LANGUAGE = 'es'
 
 def messages(message, lang='en')
   MESSAGES[lang][message]
@@ -15,17 +15,6 @@ def valid_number?(num)
   /\A[+-]?\d+(\.[\d]+)?\z/.match(num)
 end
 
-def operation_to_message(oper)
-  operations = {
-    '1' => 'Adding',
-    '2' => 'Subtracting',
-    '3' => 'Multiplying',
-    '4' => 'Dividing'
-  }
-
-  operations[oper]
-end
-
 puts prompt('welcome')
 
 name = ''
@@ -33,7 +22,7 @@ loop do
   name = Kernel.gets().chomp()
 
   if name.empty?()
-    prompt("valid_name")
+    puts prompt("valid_name")
   else
     break
   end
@@ -45,7 +34,7 @@ loop do # Main loop
   num1 = nil
   loop do
     puts prompt("first_number")
-    num1 = Kernel.gets.chomp
+    num1 = Kernel.gets().chomp()
 
     if valid_number?(num1)
       break
@@ -80,7 +69,7 @@ loop do # Main loop
     end
   end
 
-  puts("#{operation_to_message(operator)} #{prompt('operation_message')}")
+  puts prompt('operation_message')
 
   result = case operator
            when '1'
