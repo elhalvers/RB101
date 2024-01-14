@@ -1,6 +1,6 @@
 require 'yaml'
 MESSAGES = YAML.load_file('calculator_messages.yml')
-LANGUAGE = 'es'
+LANGUAGE = 'en'
 
 def messages(message, lang='en')
   MESSAGES[lang][message]
@@ -12,7 +12,7 @@ def prompt(key)
 end
 
 def valid_number?(num)
-  /\A[+-]?\d+(\.[\d]+)?\z/.match(num)
+  /\A[+-]?\d+(\.[\d]+)?\z/.match(n:um)
 end
 
 puts prompt('welcome')
@@ -21,7 +21,7 @@ name = ''
 loop do
   name = Kernel.gets().chomp()
 
-  if name.empty?()
+  if name.strip.empty?()
     puts prompt("valid_name")
   else
     break
