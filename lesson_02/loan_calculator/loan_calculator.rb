@@ -28,29 +28,32 @@ Main Loop
      - Indicate invalid response, must be a number
 
     apr_loop
-      Prompt - Ask for the Annual Percentage Rate (APR) ie, for 10 % key in 10, 6.5% key in 6.5
+      Prompt - Ask for the Annual Percentage Rate (APR)
+      ie, for 10 % key in 10, 6.5% key in 6.5
        - store input in 'apr' variable
        - validate that input is numeric (helper method)
        - break if valid
        - Indicate invalid response, must be a number
-       
+
     loan_duration_loop
       Prompt - Ask for the Loan Duration (months)
        - store input in 'loan_duration' variable
        - validate that input is a positive Integer
        - break if valid
-       - Indicate invalid response, must be positive integer 
+       - Indicate invalid response, must be positive integer
 
 Calculations: (Output values rounded to 2 places for displayed format)
  - convert APR to 'monthly_rate' variable ((apr * 0.01) / 12)
- - Use the following formula  and input values to retrieve 'monthly_payment' (m) variable value
+ - Use the following formula  and input values to retrieve
+   'monthly_payment' (m) variable value
    m = p * (j / (1 - (1 + j)**(-n)))
 
  - Calculate 'total_amount_paid' over the length of the loan
- - Calculate total_interest_paid' over the length of the loan (total_amount_paid - loan_amount)
+ - Calculate total_interest_paid' over the length of the loan
+   (total_amount_paid - loan_amount)
 
  Output the results for:
-  - 'monthly_payment', 
+  - 'monthly_payment',
   - 'total_amount_paid' over 'loan_duration',
   - 'total_interest_paid' over 'loan_duration'
 
@@ -65,7 +68,7 @@ Calculations: (Output values rounded to 2 places for displayed format)
 
 require 'yaml'
 MESSAGES = YAML.load_file('loan_calculator_messages.yml')
-LANGUAGE = 'es' # 'en' for 'English', 'es' for 'Spanish'
+LANGUAGE = 'en' # 'en' for 'English', 'es' for 'Spanish'
 
 def messages(message, lang='en')
   MESSAGES[lang][message]
@@ -87,13 +90,12 @@ end
 Kernel.puts(prompt('welcome'))
 
 loop do # Main loop
-
   # Get input from user
-  loan_amount = ""
+  loan_amt = ""
   loop do
     Kernel.puts(prompt('ask_loan_amount'))
-    loan_amount = Kernel.gets().chomp()
-    break if valid_number?(loan_amount)
+    loan_amt = Kernel.gets().chomp()
+    break if valid_number?(loan_amt)
     Kernel.puts(prompt('invalid_number'))
   end
 
@@ -105,26 +107,26 @@ loop do # Main loop
     Kernel.puts(prompt('invalid_number'))
   end
 
-  loan_duration = ""
+  loan_length = ""
   loop do
     Kernel.puts(prompt('ask_loan_duration'))
-    loan_duration = Kernel.gets().chomp()
-    break if valid_int?(loan_duration)
+    loan_length = Kernel.gets().chomp()
+    break if valid_int?(loan_length)
     Kernel.puts(prompt('invalid_int'))
   end
 
   # Calculations
-  monthly_rate = ((apr.to_f * 0.01) / 12)
-  monthly_payment = loan_amount.to_f * (monthly_rate / (1 - (1 + monthly_rate)**(-loan_duration.to_i)))
-  total_amount_paid = monthly_payment * loan_duration.to_i
-  total_interest_paid = total_amount_paid - loan_amount.to_f
+  mon_rate = ((apr.to_f * 0.01) / 12)
+  mp = loan_amt.to_f * (mon_rate / (1 - ((1 + mon_rate)**(-loan_length.to_i))))
+  total_paid = mp * loan_length.to_i
+  total_interest_paid = total_paid - loan_amt.to_f
 
   Kernel.puts(prompt('calculating'))
   Kernel.puts() # Adding a line space for better UX
 
   # Output
-  Kernel.puts("#{prompt('monthly_payment_amount')} $#{monthly_payment.round(2)}")
-  Kernel.puts("#{prompt('total_paid')} #{loan_duration} payments: $#{total_amount_paid.round(2)}")
+  puts("#{prompt('monthly_payment_amount')} $#{mp.round(2)}")
+  puts("#{prompt('total')} #{loan_length} payments: $#{total_paid.round(2)}")
   Kernel.puts("#{prompt('interest_paid')} $#{total_interest_paid.round(2)}")
 
   Kernel.puts() # Adding a line space for better UX
@@ -135,4 +137,3 @@ loop do # Main loop
 end
 
 Kernel.puts(prompt('thank_you'))
-
