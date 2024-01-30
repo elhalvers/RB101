@@ -80,12 +80,14 @@ def prompt(key)
 end
 
 def valid_number?(num)
-  /\A[+-]?\d+(\.[\d]+)?\z/.match(num)
+  /\A[+]?\d+(\.[\d]+)?\z/.match(num)
 end
 
 def valid_int?(num)
   /^\+?([1-9]\d*)$/.match(num)
 end
+
+system("cls") || system("clear")
 
 Kernel.puts(prompt('welcome'))
 
