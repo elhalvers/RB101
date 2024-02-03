@@ -12,7 +12,7 @@ def prompt(key)
 end
 
 def valid_number?(num)
-  /\A[+-]?\d+(\.[\d]+)?\z/.match(n:um)
+  /\A[+-]?\d+(\.[\d]+)?\z/.match(num)
 end
 
 puts prompt('welcome')
